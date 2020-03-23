@@ -6,7 +6,7 @@ const BlogForm = (props) => {
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
 
-    const {setNotification, setBlogs, blogs} = props
+    const {blogFormRef, setNotification, setBlogs, blogs} = props
 
     const addBlog = async (event) => {
         event.preventDefault()
@@ -16,6 +16,10 @@ const BlogForm = (props) => {
             url: url
         }
         try {
+            blogFormRef.current.toggleVisibility()
+            setTitle('')
+            setAuthor('')
+            setUrl('')
             const response = await blogService.create(newBlog)
             setNotification({ message: `a new blog ${title} by ${author} added`, type: "info" })
             setTimeout(() => {
