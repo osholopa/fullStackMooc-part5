@@ -18,14 +18,14 @@ const LoginForm = props => {
 
       window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
 
-      blogService.setToken(user.token)
-      setUser(user)
+      blogService.setToken(user.token) 
       setUsername('')
       setPassword('')
       setNotification({ message: 'login successful', type: 'info' })
       setTimeout(() => {
         setNotification({ message: null, type: null })
       }, 3000)
+      setUser(user)
     } catch (exception) {
       setNotification({ message: 'wrong username or password', type: 'error' })
       setTimeout(() => {
