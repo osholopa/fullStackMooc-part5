@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
 const BlogForm = props => {
@@ -7,35 +6,19 @@ const BlogForm = props => {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  const { blogFormRef, setNotification, setBlogs, blogs } = props
+  const { createBlog } = props
 
-  const addBlog = async event => {
+  const addBlog = event => {
     event.preventDefault()
     const newBlog = {
       title: title,
       author: author,
       url: url,
     }
-    try {
-      blogFormRef.current.toggleVisibility()
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-      const response = await blogService.create(newBlog)
-      setNotification({
-        message: `a new blog ${title} by ${author} added`,
-        type: 'info',
-      })
-      setTimeout(() => {
-        setNotification({ message: null, type: null })
-      }, 3000)
-      setBlogs(blogs.concat(response))
-    } catch (exception) {
-      setNotification({ message: exception.message, type: 'error' })
-      setTimeout(() => {
-        setNotification({ message: null, type: null })
-      }, 5000)
-    }
+    createBlog(newBlog)
+    setAuthor('')
+    setTitle('')
+    setUrl('')
   }
 
   return (
@@ -44,7 +27,7 @@ const BlogForm = props => {
       <form onSubmit={addBlog}>
         <div>
           title
-          <input
+          <input id="title"
             type="text"
             value={title}
             name="Title"
@@ -53,7 +36,7 @@ const BlogForm = props => {
         </div>
         <div>
           author
-          <input
+          <input id="author"
             type="text"
             value={author}
             name="Author"
@@ -62,7 +45,7 @@ const BlogForm = props => {
         </div>
         <div>
           url
-          <input
+          <input id="url"
             type="text"
             value={url}
             name="Url"
@@ -76,10 +59,7 @@ const BlogForm = props => {
 }
 
 BlogForm.propTypes = {
-  setNotification: PropTypes.func.isRequired,
-  blogFormRef: PropTypes.object.isRequired,
-  setBlogs: PropTypes.func.isRequired,
-  blogs: PropTypes.array.isRequired,
+  createBlog: PropTypes.func.isRequired,
 }
 
 export default BlogForm
