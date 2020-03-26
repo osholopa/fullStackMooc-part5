@@ -47,7 +47,7 @@ test('shows also url and likes after "view" button has been pressed', () => {
   button.onclick = mockHandler
   fireEvent.click(button)
   expect(mockHandler.mock.calls.length).toBe(1)
-  
+
   const div = component.container.querySelector('.blog')
 
   expect(div).toHaveTextContent(blog.url)

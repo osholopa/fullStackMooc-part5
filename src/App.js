@@ -32,7 +32,7 @@ const App = () => {
     try {
       const user = await loginService.login(userObject)
       window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
-      blogService.setToken(user.token)  
+      blogService.setToken(user.token)
       setNotification({ message: 'login successful', type: 'info' })
       setTimeout(() => {
         setNotification({ message: null, type: null })
