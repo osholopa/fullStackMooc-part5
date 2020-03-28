@@ -32,7 +32,7 @@ const Blog = ({ blog, handleLike, handleRemove, user }) => {
   return (
     <div className='blog' style={blogStyle}>
       {blog.title} {blog.author}{' '}
-      <button
+      <button id="toggleView"
         onClick={() => {
           setView(!view)
         }}
